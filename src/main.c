@@ -1,9 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "args.h"
+#include "bf.h"
 #include "comma_input.h"
 #include "input.h"
-#include "bf.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[]) {
     check_args(argc, argv[0]);

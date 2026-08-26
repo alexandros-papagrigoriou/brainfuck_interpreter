@@ -29,7 +29,7 @@ void get_comma_inputs(size_t comma_counter) {
             exit(EXIT_FAILURE);
         }
 
-        for (size_t i = 0; i < strlen(line) && comma_index < (size_t) comma_counter; i++) {
+        for (size_t i = 0; i < strlen(line) && comma_index < (size_t)comma_counter; i++) {
             if (line[i] != '\n') {
                 comma_inputs[comma_index++] = line[i];
             }

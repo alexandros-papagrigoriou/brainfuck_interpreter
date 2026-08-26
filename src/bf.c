@@ -1,8 +1,8 @@
 #include "bf.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include "comma_input.h"
 #include "stack.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define BF_SIZE 30000
 
@@ -57,14 +57,30 @@ static void execute_command(char c, size_t *i, size_t comma_counter) {
     static size_t index = 0;
 
     switch (c) {
-        case '>': greater_than(&index); break;
-        case '<': less_than(&index); break;
-        case '+': plus(bf, index); break;
-        case '-': minus(bf, index); break;
-        case '.': dot(bf, index); break;
-        case ',': comma(bf, index, comma_counter); break;
-        case '[': open_bracket(*i); break;
-        case ']': close_bracket(bf, index, i); break;
+    case '>':
+        greater_than(&index);
+        break;
+    case '<':
+        less_than(&index);
+        break;
+    case '+':
+        plus(bf, index);
+        break;
+    case '-':
+        minus(bf, index);
+        break;
+    case '.':
+        dot(bf, index);
+        break;
+    case ',':
+        comma(bf, index, comma_counter);
+        break;
+    case '[':
+        open_bracket(*i);
+        break;
+    case ']':
+        close_bracket(bf, index, i);
+        break;
     }
 }
 
