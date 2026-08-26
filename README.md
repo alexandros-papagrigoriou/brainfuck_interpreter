@@ -148,3 +148,7 @@ This simple Brainfuck program takes 8 characters as input and immediately output
 - The `,` command reads one character from user input into the current cell.
 - The `.` command outputs the character stored in the current cell.
 - This program repeats the sequence 8 times, reading and then immediately outputting each character.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
