@@ -2,8 +2,6 @@
 
 This is a Brainfuck Interpreter written in C. It supports all standard Brainfuck commands and handles input/output with proper memory management.
 
----
-
 ## Features
 
 - Supports Brainfuck commands: `><+-.,[]`
@@ -12,60 +10,44 @@ This is a Brainfuck Interpreter written in C. It supports all standard Brainfuck
 - Error handling for memory and range issues
 - Supports input from file or standard input
 
----
+## Requirements
 
-## Usage
+- GCC or Clang
+- GNU Make
 
-### Compile
+## Building
 
-To compile the project, run:
+### Build
 
 ```bash
 make
 ```
 
-This command will:
+Output binary: `bin/bfi`.
 
-- Compile each source `.c` file into an object `.o` file inside the `build/` directory.
-- Link all object files to create the executable file called `bf`.
+### Run
 
----
-
-### Run (Mode 1)
-
-Enter Brainfuck code manually via standard input:
+Run the binary to display the unsage information.
 
 ```bash
-./bf
+./bin/bfi --help
 ```
 
-You'll be prompted to type your code. Press `Enter` after an empty row when you're done.
-
----
-
-### Run (Mode 2)
-
-Run a Brainfuck program from a file.
-
-For example, if you have a file called `helloWorld.bf` inside the `sample_bf_code` directory, run:
+### Debug with GDB
 
 ```bash
-./bf sample_bf_code/helloWorld.bf
+make gdb
 ```
 
----
+Builds the binary and launches it under `gdb`.
 
 ### Clean
-
-Remove the compiled executable file `bf` **and all object files** in the `build` directory:
 
 ```bash
 make clean
 ```
 
-Use this if you want to rebuild from scratch or delete all build artifacts including the executable and object files.
-
----
+Removes all generated build artifacts (`build/` and `bin/`).
 
 ## Brainfuck Commands
 
@@ -115,8 +97,6 @@ Brainfuck is a minimalist programming language with only 8 commands. These comma
     </tbody>
 </table>
 
----
-
 ## Example: Hello World
 
 Here’s a classic Brainfuck program that prints **"Hello World!"**:
@@ -132,8 +112,6 @@ Here’s a classic Brainfuck program that prints **"Hello World!"**:
 - The `+` and `-` commands increment or decrement cell values.
 - The `.` command outputs the current cell’s ASCII character.
 - Together, these commands print "Hello World!" one character at a time.
-
----
 
 ## Example: Simple Input/Output Test
 
