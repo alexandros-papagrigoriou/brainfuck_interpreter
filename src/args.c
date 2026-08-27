@@ -1,15 +1,27 @@
 #include "args.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-static void usage_message(const char *bf) {
-    fprintf(stderr, "Usage 1: %s\n", bf);
-    fprintf(stderr, "Usage 2: %s <filename>\n", bf);
+static void usage_message(const char *bfi) {
+    printf("Usage: %s [filename]\n", bfi);
+    printf("If no filename is given, stdin is used.\n");
 }
 
-void check_args(int argc, const char *bf) {
+char *check_args(int argc, char *argv[]) {
+    if (argc < 2) {
+        return NULL;
+    }
+
     if (argc > 2) {
-        usage_message(bf);
+        usage_message(argv[0]);
         exit(EXIT_FAILURE);
     }
+
+    if (strcmp(argv[1], "--help") == 0) {
+        usage_message(argv[0]);
+        exit(EXIT_SUCCESS);
+    }
+
+    return argv[1];
 }

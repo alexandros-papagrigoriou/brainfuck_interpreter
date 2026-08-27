@@ -14,7 +14,7 @@ void get_comma_inputs(size_t comma_counter) {
 
     comma_inputs = malloc(comma_counter);
     if (!comma_inputs) {
-        perror("Memory allocation failed.\n");
+        perror("malloc");
         exit(EXIT_FAILURE);
     }
 

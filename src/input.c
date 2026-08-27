@@ -11,7 +11,7 @@ static char *add_command(size_t *size, size_t *capacity, char *code, char c, siz
         char *tmp_code = realloc(code, *capacity);
         if (!tmp_code) {
             free(code);
-            perror("Memory reallocation failed.\n");
+            perror("realloc");
             exit(EXIT_FAILURE);
         }
         code = tmp_code;
@@ -48,7 +48,7 @@ static char *user_input(size_t *size, size_t *capacity, char *code, size_t *comm
 static char *file_input(const char *filename, size_t *size, size_t *capacity, char *code, size_t *comma_counter) {
     FILE *file = fopen(filename, "r");
     if (!file) {
-        perror("Error opening file.\n");
+        perror("fopen");
         exit(EXIT_FAILURE);
     }
 
@@ -70,7 +70,7 @@ static char *add_null_terminator(size_t size, size_t capacity, char *code) {
         capacity += 1;
         char *tmp_code = realloc(code, capacity);
         if (!tmp_code) {
-            perror("Memory reallocation failed.\n");
+            perror("realloc");
             exit(EXIT_FAILURE);
         }
         code = tmp_code;
@@ -80,17 +80,19 @@ static char *add_null_terminator(size_t size, size_t capacity, char *code) {
     return code;
 }
 
-char *read_bf_code(int argc, const char *filename, size_t *comma_counter) {
+char *read_bf_code(const char *filename, size_t *comma_counter) {
     size_t size = 0;
     size_t capacity = INITIAL_CODE_CAPACITY;
 
     char *code = malloc(capacity);
     if (!code) {
-        perror("Memory allocation failed.\n");
+        perror("malloc");
         exit(EXIT_FAILURE);
     }
 
-    code = (argc < 2) ? user_input(&size, &capacity, code, comma_counter) : file_input(filename, &size, &capacity, code, comma_counter);
+    code = filename
+               ? file_input(filename, &size, &capacity, code, comma_counter)
+               : user_input(&size, &capacity, code, comma_counter);
     printf("\n\n");
 
     code = add_null_terminator(size, capacity, code);

@@ -3,6 +3,6 @@
 
 #include <stddef.h>
 
-char *read_bf_code(int argc, const char *filename, size_t *comma_counter);
+char *read_bf_code(const char *filename, size_t *comma_counter);
 
 #endif

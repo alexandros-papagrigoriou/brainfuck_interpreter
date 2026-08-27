@@ -1,6 +1,6 @@
 #ifndef ARGS_H
 #define ARGS_H
 
-void check_args(int argc, const char *bf);
+char *check_args(int argc, char *argv[]);
 
 #endif

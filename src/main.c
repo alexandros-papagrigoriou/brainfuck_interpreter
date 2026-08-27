@@ -6,10 +6,10 @@
 #include <stdlib.h>
 
 int main(int argc, char *argv[]) {
-    check_args(argc, argv[0]);
+    char *input_file = check_args(argc, argv);
 
     size_t comma_counter = 0;
-    char *code = read_bf_code(argc, argv[1], &comma_counter);
+    char *code = read_bf_code(input_file, &comma_counter);
 
     printf("Clean input (commands only):\n");
     printf("%s\n\n", code);

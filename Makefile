@@ -1,30 +1,50 @@
-CC = gcc
-CFLAGS = -Wall -Wextra
+TARGET := bfi
 
-SRC_DIR = src
-OBJ_DIR = build
+CC := gcc
 
-SRC = $(wildcard $(SRC_DIR)/*.c)
-OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+SRC_DIR := src
 
-TARGET = bfi
+BUILD_DIR := build
+BIN_DIR := bin
 
-.PHONY: all clean
+SRCS := $(shell find $(SRC_DIR) -name '*.c')
 
-all: $(TARGET)
+OBJS := $(SRCS:$(SRC_DIR)/%.c=$(BUILD_DIR)/%.o)
 
-$(TARGET): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) -o $(TARGET)
-	@echo "Built $(TARGET) executable"
+DEPS := $(OBJS:.o=.d)
+-include $(DEPS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "Compiled $< -> $@"
+STD_FLAGS := -std=c11
+WARN_FLAGS := -Wall -Wextra -Wpedantic -Werror
+DBG_FLAGS  := -g
+DEP_FLAGS := -MMD -MP
 
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+CFLAGS := $(STD_FLAGS) $(WARN_FLAGS) $(DBG_FLAGS) $(DEP_FLAGS)
+
+LDLIBS :=
+LDFLAGS :=
+
+.DEFAULT_GOAL := all
+
+all: $(BIN_DIR)/$(TARGET)
+
+$(BIN_DIR)/$(TARGET): $(OBJS) | $(BIN_DIR)
+	$(CC) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(BUILD_DIR) $(BIN_DIR):
+	@mkdir -p $@
+
+gdb: all
+	@gdb ./$(BIN_DIR)/$(TARGET)
 
 clean:
-	@rm -rf $(TARGET) $(OBJ_DIR)
-	@echo "Cleaned $(TARGET) executable"
-	@echo "Cleaned $(OBJ_DIR) directory"
+	@rm -rf $(BUILD_DIR) $(BIN_DIR)
+
+compile-db:
+	@bear -- make -B all
+
+.PHONY: all gdb clean compile-db
