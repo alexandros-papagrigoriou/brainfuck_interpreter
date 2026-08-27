@@ -4,6 +4,8 @@
 #include <string.h>
 
 static void usage_message(const char *bfi) {
+    printf("Brainfuck Interpreter\n");
+    printf("\n");
     printf("Usage: %s [filename]\n", bfi);
     printf("If no filename is given, stdin is used.\n");
 }
